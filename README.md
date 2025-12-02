@@ -1,10 +1,18 @@
-The goal of this exercise is to convert a string to a new string where each character in the new string is "(" if that character appears only once in the original string, or ")" if that character appears more than once in the original string. Ignore capitalization when determining if a character is a duplicate.
+# Duplicate Encoder:
 
-Examples
-"din" => "((("
-"recede" => "()()()"
-"Success" => ")())())"
-"(( @" => "))((" 
+## 🎯 My Objective
+I intend to solve the "Duplicate Encoder" problem by treating string transformation as a mathematical mapping function rather than a procedural loop. My goal is to convert a string into a sequence of parentheses based on the frequency of each character.
 
-Notes
-Assertion messages may be unclear about what they display in some languages. If you read "...It Should encode XXX", the "XXX" is the expected result, not the input!
+## 📐 The Problem Definition
+Given an input string $W$, I need to construct a result string $R$ where every character $c$ is replaced according to the following logic:
+
+* **If I find** that the character $c$ appears **once** in the string: I replace it with `(`.
+* **If I find** that the character $c$ appears **more than once**: I replace it with `)`.
+
+**Constraint:** I must ignore capitalization. For my algorithm, `'A'` is identical to `'a'`.
+
+## 🧪 Examples of my expected output
+* `"din"`      $\rightarrow$  `"((("`
+* `"recede"`   $\rightarrow$  `"()()()"`
+* `"Success"`  $\rightarrow$  `")())())"` (Note: 'S' is a duplicate of 's')
+* `"(( @"`     $\rightarrow$  `"))(("`
