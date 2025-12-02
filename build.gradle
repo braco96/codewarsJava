@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.codewars'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+
+// Configuración del JAR final
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'Codewars Solutions',
+            'Implementation-Version': archiveVersion
+        )
+    }
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
