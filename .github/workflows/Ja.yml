@@ -1,0 +1,73 @@
+name: Maven Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Importante: SonarQube necesita el historial completo de git
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        server-id: github
+        settings-path: ${{ github.workspace }}
+
+    # Combinamos compilación, tests y análisis en un solo paso o pasos consecutivos
+    - name: Build and Analyze with SonarQube
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      run: |
+        mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+        -Dsonar.projectKey=TU_CLAVE_DE_PROYECTO \
+        -Dsonar.projectName='Nombre de tu Proyecto' \
+        --file pom.xml
+
+    - name: Publish to GitHub Packages Apache Maven
+      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
+
+        Azure MYSQL Deploy
+By Azure 
+ v1
+ 11
+Deploy to Azure MySQL database using SQL script files
+
+View full Marketplace listing
+Installation
+Copy and paste the following snippet into your .yml file.
+
+Version: v1 
+            - name: Azure MYSQL Deploy
+  uses: Azure/mysql@v1
+  with:
+    # Server name of Azure DB for Mysql. Example: fabrikam.mysql.database.azure.com. When you connect using Mysql Workbench, this is the same value that is used for Hostname in Parameters
+    server-name: 
+    # The connection string, including authentication information, for the Azure MySQL Server. (deprecated)
+    connection-string: # optional
+    # Azure MySQL Server username for login
+    username: # optional
+    # Azure MySQL Server password for login
+    password: # optional
+    # Azure MySQL Server database (optional) to connect to. No database will be used automatically.
+    database: # optional
+    # Path to SQL script file to deploy
+    sql-file: 
+    # Additional options supported by mysql simple SQL shell. These options will be applied when executing the given file on the Azure DB for Mysql.
+    arguments: # optional
+          
